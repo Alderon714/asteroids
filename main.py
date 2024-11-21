@@ -6,6 +6,8 @@
 import pygame
 from constants import * # import everything from the constants.py file/module
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -13,6 +15,15 @@ def main():
     clock = pygame.time.Clock() # allows for milosecond pause in CPU usage.
     dt = 0 # Delta Time
     running = True
+
+    # Groups of objects/actions
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+    asteroid_field = AsteroidField()
 
     # from Pygame documentation https://www.pygame.org/docs/index.html 
     player_pos = pygame.Vector2(screen.get_width() /2, screen.get_height() / 2)
@@ -25,12 +36,16 @@ def main():
         
         # Update game state
 #        dt = clock.get_time() / 1000 # calc time in delta time in seconds
-        player.update(dt)
+        for thing in updatable:
+            thing.update(dt)
+#       player.update(dt) <-- orginal update Player
 
         # RENDER YOUR GAME HERE
         # fil the screen with a color to wipe away anything from last frame
         screen.fill("teal") # teal works! Go Chants
-        player.draw(screen)
+        for thing in drawable:
+            thing.draw(screen)
+#       player.draw(screen) <-- orginal draw Player
         # flip() the display to put your work on the screen
         pygame.display.flip()
 
