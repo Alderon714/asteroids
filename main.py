@@ -3,6 +3,7 @@
 # Daniel S Cochran
 # November 19, 2024
 #
+import sys
 import pygame
 from constants import * # import everything from the constants.py file/module
 from player import Player
@@ -39,6 +40,11 @@ def main():
         for thing in updatable:
             thing.update(dt)
 #       player.update(dt) <-- orginal update Player
+
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
 
         # RENDER YOUR GAME HERE
         # fil the screen with a color to wipe away anything from last frame
