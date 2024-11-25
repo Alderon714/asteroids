@@ -51,6 +51,12 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+        # Did and asteroid get hit?
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.kill()
+                    shot.kill()
+
         # RENDER YOUR GAME HERE
         # fil the screen with a color to wipe away anything from last frame
         screen.fill("teal") # teal works! Go Chants
