@@ -51,10 +51,10 @@ def main():
                 print("Game over!")
                 sys.exit()
 
-        # Did and asteroid get hit?
+        # Did any asteroid get hit?
             for shot in shots:
                 if asteroid.collision(shot):
-                    asteroid.kill()
+                    asteroid.split()
                     shot.kill()
 
         # RENDER YOUR GAME HERE
